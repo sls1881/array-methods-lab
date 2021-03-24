@@ -13,29 +13,43 @@ const mapFn = (arr, callback) => {
 
 const filterFn = (arr, callback) => {
   let cloneArr = [];
-  
-  for (let i = 0; i < arr.length; i++) {
-      
-      if (callback(arr[i]) === true) {
 
-          cloneArr = [...cloneArr, arr[i]]
-      }
-      
-    };
-    return cloneArr;
+  for (let i = 0; i < arr.length; i++) {
+    if (callback(arr[i]) === true) {
+      cloneArr = [...cloneArr, arr[i]];
+    }
+  }
+  return cloneArr;
 };
 
 const findFn = (arr, callback) => {
-    
- for(let i = 0; i < arr.length; i++) {
-     if (callback(arr[i]) === true) return i;
- };
+  for (let i = 0; i < arr.length; i++) {
+    if (callback(arr[i]) === true) return i;
+  }
 
- return -1
+  return -1;
+};
+
+const reduceFn = (arr, callback, initialValue) => {
+    let accumulator = initialValue;
+    
+    if (initialValue === undefined) {
+       accumulator = 0;
+    } else {
+        accumulator = initialValue;
+    }
+    
+    for (let i =0; i< arr.length; i++) {
+        accumulator = callback(accumulator, arr[i])
+
+    }
+
+    return accumulator;
 }
 
 module.exports = {
   mapFn,
   filterFn,
   findFn,
+  reduceFn,
 };
