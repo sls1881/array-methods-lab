@@ -1,5 +1,5 @@
 const { sum } = require('lodash');
-const { mapFn, filterFn, findFn, reduceFn } = require('./array-functions.js');
+const { mapFn, filterFn, findFn, reduceFn, everyFn } = require('./array-functions.js');
 // it('', () => {
 // expect().toEqual();
 // });
@@ -37,4 +37,19 @@ it('should takes an Array and callback and an (optional) second initialValue par
 
     expect(finalArr).toEqual(15);
 });
+
+it('returns false if any items in the array return a falsy value', () => {
+    const arr = [2, 3, 4, 6]
+    const finalArr = everyFn(arr, (n) => n % 2 === 0);
+
+    expect(finalArr).toBeFalsy();
+})
 });
+
+it('returns true if every item in the Array has returned true', () => {
+    const arr = [2, 4, 6, 8]
+
+    const finalArr = everyFn(arr, (n) => n % 2 === 0)
+
+    expect(finalArr).toBeTruthy();
+})

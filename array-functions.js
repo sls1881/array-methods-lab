@@ -31,25 +31,34 @@ const findFn = (arr, callback) => {
 };
 
 const reduceFn = (arr, callback, initialValue) => {
-    let accumulator = initialValue;
-    
-    if (initialValue === undefined) {
-       accumulator = 0;
-    } else {
-        accumulator = initialValue;
-    }
-    
-    for (let i =0; i< arr.length; i++) {
-        accumulator = callback(accumulator, arr[i])
+  let accumulator = initialValue;
 
+  if (initialValue === undefined) {
+    accumulator = arr[0];
+    for (let i = 1; i < arr.length; i++) {
+      accumulator = callback(accumulator, arr[i]);
     }
+  } else {
+    accumulator = initialValue;
+    for (let i = 0; i < arr.length; i++) {
+      accumulator = callback(accumulator, arr[i]);
+    }
+  }
 
-    return accumulator;
-}
+  return accumulator;
+};
+
+const everyFn = (arr, callback) => {
+  for (let i = 0; i < arr.length; i++) {
+    if (!callback(arr[i])) return false;
+  }
+  return true;
+};
 
 module.exports = {
   mapFn,
   filterFn,
   findFn,
   reduceFn,
+  everyFn,
 };
